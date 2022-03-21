@@ -28,6 +28,7 @@ node {
     }
     
     stage ('Exec Gradle') {
+        rtGradle.run rootDir: ".", tasks: 'clean build jar', buildInfo: buildInfo
         sh 'ls -alh'
         sh 'echo $PWD'
         sh "find . name '*.jar'"
