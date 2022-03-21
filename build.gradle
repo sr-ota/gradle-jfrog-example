@@ -28,8 +28,8 @@ publishing {
         mavenJava(MavenPublication) {
 	    groupId = group
             artifactId = project.getName()
-       	    version = "0.1"
-	    artifact(file("$rootDir/build/libs/gradledemo.jar"))
+       	    version = project.version
+	    artifact(jar.archiveFile.get().asFile)
         }
     }
 }
@@ -41,20 +41,8 @@ artifactory {
 
     contextUrl = 'https://evaluate.jfrog.io/artifactory'
     publish {
-
         defaults {
             publications('mavenJava')
         }
     }
  }
-
-
-/*
-jar {
-   enabled = true
-}
-
-artifactoryPublish { 
-    dependsOn jar
-}
-*/
