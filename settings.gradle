@@ -16,4 +16,3 @@ include 'services:webservice'
 */
 
 rootProject.name = 'gradledemo'
-rootProject.version = '0.1'
