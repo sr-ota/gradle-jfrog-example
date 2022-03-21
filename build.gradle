@@ -77,7 +77,7 @@ artifactory {
 allprojects {
     apply plugin: 'com.jfrog.artifactory'
     group = 'org.jfrog.test.gradle.publish'
-    version = currentVersion
+    version = "0.1"
     status = 'Integration'
 /*    repositories {
         maven {
