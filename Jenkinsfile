@@ -31,7 +31,7 @@ node {
         rtGradle.run rootDir: ".", tasks: 'clean build publish jar', buildInfo: buildInfo
         sh 'ls -alh'
         sh 'echo $PWD'
-        sh "find . name '*.jar'"
+        sh "find . -name '*.jar'"
         rtGradle.run rootDir: ".", tasks: 'clean build artifactoryPublish', buildInfo: buildInfo
     }
 
