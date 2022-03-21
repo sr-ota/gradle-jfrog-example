@@ -24,7 +24,7 @@ node {
     }
     
     stage ('Git Clone') {
-        git url: 'https://github.com/sr-ota/gradle-jfrog-example', branch: 'master'
+        git url: 'https://github.com/sr-ota/gradle-jfrog-example', branch: 'main'
     }
 
     stage ('Exec Gradle') {
