@@ -23,7 +23,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
-/*publishing {
+publishing {
     publications {
         mavenJava(MavenPublication) {
 	    groupId = group
@@ -32,7 +32,7 @@ dependencies {
 	    artifact(file("$rootDir/build/libs/gradledemo.jar"))
         }
     }
-}*/
+}
 
 artifactory {
     // Artifactory config
@@ -40,17 +40,14 @@ artifactory {
     clientConfig.info.addEnvironmentProperty('test.adding.dynVar',new java.util.Date().toString())
 
     contextUrl = 'https://evaluate.jfrog.io/artifactory'
-    /*publish {
-        repository {
-            repoKey = 'gradle-repo' // The Artifactory repository key to publish to
-            username = System.getenv("artifactory_user") // The publisher user name
-            password = System.getenv("artifactory_password") // The publisher password
-        }
+    publish {
+
         defaults {
             publications('mavenJava')
         }
-    }*/
-}
+    }
+ }
+
 
 /*
 jar {
