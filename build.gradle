@@ -1,18 +1,85 @@
 apply plugin: 'java-library'
 
 repositories {
-    jcenter()
+    mavenCentral()
+
+    // link to jfrog
+    /*maven {
+        +url "http://repo.myorg.com/artifactory/libs-releases" // The Artifactory (preferably virtual) repository to resolve from
+        credentials {               // Optional resolver credentials (leave out to use anonymous resolution)
+            username = "resolver" // Artifactory user name
+            password = "resolverPaS*" // Password or API Key
+        }
+    }*/
+  
+}
+
+buildscript {
+    // buildscript block describes configuration for the build itself
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath(group: 'org.jfrog.buildinfo', name: 'build-info-extractor-gradle', version: '4.+')
+    }
+    configurations.classpath {
+        resolutionStrategy {
+            cacheDynamicVersionsFor 0, 'seconds'
+            cacheChangingModulesFor 0, 'seconds'
+        }
+    }
 }
 
 dependencies {
-    // This dependency is exported to consumers, that is to say found on their compile classpath.
     api 'org.apache.commons:commons-math3:3.6.1'
-
-    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:23.0'
     implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.16.0'
     implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.16.0'
-
     testImplementation 'junit:junit:4.12'
 }
 
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+	    from components.java
+	    artifact(file("$rootDir/gradle.properties"))
+        }
+    }
+}
+
+artifactory {
+    // Artifactory config
+    clientConfig.setIncludeEnvVars(true)
+    clientConfig.info.addEnvironmentProperty('test.adding.dynVar',new java.util.Date().toString())
+
+    contextUrl = 'https://evaluate.jfrog.io/artifactory'
+    publish {
+        repository {
+            repoKey = 'gradle-repo' // The Artifactory repository key to publish to
+            username = "${artifactory_user}" // The publisher user name
+            password = "${artifactory_password}" // The publisher password
+        }
+        defaults {
+            // Reference to Gradle publications defined in the build script.
+            // This is how we tell the Artifactory Plugin which artifacts should be
+            // published to Artifactory.
+            publications('mavenJava')
+            publishArtifacts = true
+            // Properties to be attached to the published artifacts.
+            properties = ['qa.level': 'basic', 'dev.team' : 'core']
+            publishPom = true // Publish generated POM files to Artifactory (true by default)
+        }
+    }
+}
+
+allprojects {
+    apply plugin: 'com.jfrog.artifactory'
+    group = 'org.jfrog.test.gradle.publish'
+    version = currentVersion
+    status = 'Integration'
+/*    repositories {
+        maven {
+            url "https://evaluate.jfrog.io/artifactory/libs-release"
+        }
+    }*/
+}
