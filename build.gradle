@@ -52,6 +52,7 @@ artifactory {
     }
 }
 
+/+
 jar {
    enabled = true
 }
@@ -59,3 +60,4 @@ jar {
 artifactoryPublish { 
     dependsOn jar
 }
+*/
