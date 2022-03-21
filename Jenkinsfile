@@ -3,6 +3,10 @@ node {
     def rtGradle = Artifactory.newGradleBuild()
     def buildInfo = Artifactory.newBuildInfo()
 
+    stage ('Git Clone') {
+        git url: 'https://github.com/sr-ota/gradle-jfrog-example', branch: 'main'
+    }
+    
     stage ('Artifactory configuration') {
         // Obtain an Artifactory server instance, defined in Jenkins --> Manage Jenkins --> Configure System:
         server = Artifactory.server "jfrogeval"
@@ -23,12 +27,8 @@ node {
         // rtGradle.useWrapper = true
     }
     
-    stage ('Git Clone') {
-        git url: 'https://github.com/sr-ota/gradle-jfrog-example', branch: 'main'
-    }
-
     stage ('Exec Gradle') {
-        rtGradle.run rootDir: ".", tasks: 'clean build jar', buildInfo: buildInfo
+        rtGradle.run rootDir: ".", tasks: 'clean build jar artifactoryPublish', buildInfo: buildInfo
     }
 
     stage ('Publish build info') {
