@@ -28,7 +28,8 @@ node {
     }
     
     stage ('Exec Gradle') {
-        rtGradle.run rootDir: ".", tasks: 'clean build publish artifactoryPublish', buildInfo: buildInfo
+        rtGradle.run rootDir: ".", tasks: 'clean build publish jar', buildInfo: buildInfo
+        rtGradle.run rootDir: ".", tasks: 'artifactoryPublish', buildInfo: buildInfo
     }
 
     stage ('Publish build info') {
