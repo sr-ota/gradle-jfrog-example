@@ -19,7 +19,7 @@ node {
 
     stage ('Extra gradle configurations') {
         // rtGradle.deployer.artifactDeploymentPatterns.addExclude("*.war")
-        tGradle.usesPlugin = true // Artifactory plugin already defined in build script
+        rtGradle.usesPlugin = true // Artifactory plugin already defined in build script
         // rtGradle.useWrapper = true
     }
     
