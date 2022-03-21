@@ -38,7 +38,7 @@ node {
     stage ('Xray') {
         try {
             xrayScan(serverId: "jfrogeval", failBuild: false)   
-        } catch {
+        } catch (Exception e){
             currentBuild.result = "UNSTABLE"    
         }
     }
