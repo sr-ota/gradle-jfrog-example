@@ -16,7 +16,7 @@ repositories {
   
 }
 
-buildscript {
+/*buildscript {
     // buildscript block describes configuration for the build itself
     repositories {
         mavenCentral()
@@ -30,7 +30,7 @@ buildscript {
             cacheChangingModulesFor 0, 'seconds'
         }
     }
-}
+}*/
 
 dependencies {
     api 'org.apache.commons:commons-math3:3.6.1'
@@ -64,26 +64,8 @@ artifactory {
             password = System.getenv("artifactory_password") // The publisher password
         }
         defaults {
-            // Reference to Gradle publications defined in the build script.
-            // This is how we tell the Artifactory Plugin which artifacts should be
-            // published to Artifactory.
             publications('mavenJava')
             publishArtifacts = true
-            // Properties to be attached to the published artifacts.
-            properties = ['qa.level': 'basic', 'dev.team' : 'core']
-            publishPom = true // Publish generated POM files to Artifactory (true by default)
         }
     }
-}
-
-allprojects {
-    apply plugin: 'com.jfrog.artifactory'
-    group = 'org.jfrog.test.gradle.publish'
-    version = "0.1"
-    status = 'Integration'
-/*    repositories {
-        maven {
-            url "https://evaluate.jfrog.io/artifactory/libs-release"
-        }
-    }*/
 }
