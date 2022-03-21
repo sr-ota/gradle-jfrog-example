@@ -52,7 +52,7 @@ artifactory {
     }
 }
 
-/+
+/*
 jar {
    enabled = true
 }
