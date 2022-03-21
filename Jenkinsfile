@@ -34,4 +34,14 @@ node {
     stage ('Publish build info') {
         server.publishBuildInfo buildInfo
     }
+    
+    stage ('Xray') {
+        try {
+            xrayScan(serverId: "jfrogeval", failBuild: false)   
+        } catch {
+            currentBuild.result = "UNSTABLE"    
+        }
+    }
+    
+    
 }
