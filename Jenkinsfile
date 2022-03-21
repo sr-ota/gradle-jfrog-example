@@ -1,5 +1,6 @@
 node {
     def server
+    def serverIdentifier = "jfrogeval"
     def rtGradle = Artifactory.newGradleBuild()
     def buildInfo = Artifactory.newBuildInfo()
 
@@ -9,7 +10,7 @@ node {
     
     stage ('Artifactory configuration') {
         // Obtain an Artifactory server instance, defined in Jenkins --> Manage Jenkins --> Configure System:
-        server = Artifactory.server "jfrogeval"
+        server = Artifactory.server serverIdentifier
         rtGradle.tool = "latest"
         rtGradle.deployer repo: "local-snapshots", server: server
         rtGradle.resolver repo: "gradle-virtual", server: server
@@ -37,7 +38,7 @@ node {
     
     stage ('Xray') {
         try {
-            xrayScan(serverId: "jfrogeval", failBuild: false)   
+            xrayScan(serverId: serverIdentifier, failBuild: false)   
         } catch (Exception e){
             currentBuild.result = "UNSTABLE"    
         }
