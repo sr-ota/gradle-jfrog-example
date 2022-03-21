@@ -16,7 +16,7 @@ repositories {
   
 }
 
-/*buildscript {
+buildscript {
     // buildscript block describes configuration for the build itself
     repositories {
         mavenCentral()
@@ -24,13 +24,7 @@ repositories {
     dependencies {
         classpath(group: 'org.jfrog.buildinfo', name: 'build-info-extractor-gradle', version: '4.+')
     }
-    configurations.classpath {
-        resolutionStrategy {
-            cacheDynamicVersionsFor 0, 'seconds'
-            cacheChangingModulesFor 0, 'seconds'
-        }
-    }
-}*/
+}
 
 dependencies {
     api 'org.apache.commons:commons-math3:3.6.1'
