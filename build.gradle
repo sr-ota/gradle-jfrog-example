@@ -43,8 +43,10 @@ dependencies {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-	    from components.java
-	    artifact(file("$rootDir/build/lib/*.jar"))
+	    groupId = group
+            artifactId = project.getName()
+       	    version = "0.1"
+	    artifact(file("$rootDir/build/lib/gradledemo.jar"))
         }
     }
 }
