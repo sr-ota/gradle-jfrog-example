@@ -29,7 +29,7 @@ publishing {
 	    groupId = group
             artifactId = project.getName()
        	    version = "0.1"
-	    artifact(file("$rootDir/build/lib/gradledemo.jar"))
+	    artifact(file("$rootDir/build/libs/gradledemo.jar"))
         }
     }
 }
