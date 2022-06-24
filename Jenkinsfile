@@ -1,6 +1,6 @@
 node {
     def server
-    def serverIdentifier = "jfrogeval"
+    def serverIdentifier = "jfrog-server"
     def rtGradle = Artifactory.newGradleBuild()
     def buildInfo = Artifactory.newBuildInfo()
 
